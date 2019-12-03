@@ -2,7 +2,7 @@
  require_relative('models/property_info')
 
  property1 = PropertyInfo.new ({
-   'address' => '32 Yellowriver Road',
+   'address' => '99 Balloon St',
    'value' => 200_000,
    'number_of_bedrooms' => 4,
    'year_built' => 2005
