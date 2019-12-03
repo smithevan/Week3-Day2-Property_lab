@@ -66,7 +66,6 @@ attr_accessor :address, :value, :number_of_bedrooms, :year_built
     db.close()
   end
 
-
   def delete()
     db = PG.connect({dbname: 'property', host: 'localhost'})
     sql = "DELETE FROM property WHERE id = $1;"
@@ -74,6 +73,16 @@ attr_accessor :address, :value, :number_of_bedrooms, :year_built
     db.prepare("delete_one", sql)
     db.exec_prepared("delete_one", values)
     db.close()
+  end
+
+  def PropertyInfo.find()
+    db = PG.connect({dbname: 'property', host: 'localhost'})
+    sql = "SELECT * FROM property WHERE id = $1;"
+    values = [@id]
+    db.prepare("find_one", sql)
+    found_property = db.exec_prepared("find_one", values)
+    db.close()
+    return found_property.map { |property_hash| PropertyInfo.new(property_hash)}
   end
 
 
