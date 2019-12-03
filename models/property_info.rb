@@ -30,5 +30,14 @@ attr_accessor :address, :value, :number_of_bedrooms, :year_built
     db.close()
   end
 
+  def PropertyInfo.all()
+    db = PG.connect({dbname: 'property', host: 'localhost'})
+    sql = 'SELECT * FROM property;'
+    db.prepare("all", sql)
+    properties = db.exec_prepared("all")
+    db.close()
+    return properties.map{ |property_hash| PropertyInfo.new(property_hash)}
+  end
+
 
 end
